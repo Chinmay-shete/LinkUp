@@ -123,8 +123,7 @@
         <main class="flex-1 p-4 overflow-y-auto relative" id="message-container">
             <div
                 class="text-zinc-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 text-center nobody">
-                bhagwaan kasam koi nahi hai yaha, ruko shaayad koi
-                aajaye.</div>
+                aare deva kon ch nahi vay kash kon aast</div>
         </main>
         <form id="chatform" class="bg-white p-4 flex">
             <input type="hidden" id="userid" value="">
@@ -147,15 +146,16 @@
             const messagebox = document.querySelector("#messagebox");
             const messagecontainer = document.querySelector("#message-container");
 
-            let room;
+            let room; 
 
             socket.emit("joinroom");
 
             socket.on("joined", function (roomname) {
                 room = roomname;
                 document.querySelector(".nobody").classList.add("hidden");
+                 
             })
-
+       
             socket.on("message", function (message) {
                 receiveMessage(message);
             })
