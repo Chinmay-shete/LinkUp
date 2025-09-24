@@ -12,16 +12,15 @@ let rooms = {};
 io.on("connection", function (socket) {
   socket.on("joinroom", function () {
     if (waitingusers.length > 0) {
-      let patner = waitingusers.shift();
-      const roomname = `${socket.id}-${patner.id}`;
-      socket.join(roomname);
-      patner.join(roomname);
-
-      io.to(roomname).emit("joined",roomname);
-    } else {
-      waitingusers.push(socket);
-    }
-  });
+    let partner = waitingusers.shift();
+    const roomname = `${socket.id}-${partner.id}`;
+    socket.join(roomname);
+    partner.join(roomname);
+    io.to(roomname).emit("joined", roomname);
+  } else {
+    waitingusers.push(socket);
+  }
+});
 socket.on("signalingMessage", (data) => {
   socket.broadcast.to(data.room).emit("signalingMessage", data.message);
   
