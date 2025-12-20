@@ -1,29 +1,80 @@
-# Omegal — Anonymous Chat & Video Call (Express + Socket.IO)
+# Omegal — Anonymous Chat & Video Call
 
-Minimal Omegle-style chat with one-to-one text and optional WebRTC video. Server is Express + Socket.IO, views are EJS, styles via Tailwind CSS.
+Minimal Omegle-style chat with one-to-one text and optional WebRTC video.
 
-## Features
-- Anonymous one-to-one matchmaking (first-in queue)
-- Realtime text chat via Socket.IO
-- WebRTC video call: start, accept/reject, hang up
-- Tailwind-styled EJS pages
-
-## Tech Stack
-- **Server**: Node.js, Express 5, Socket.IO 4
+- **Server**: Express 5 + Socket.IO 4 (CommonJS)
 - **Views**: EJS
 - **Styles**: Tailwind CSS 3
 
-## Quickstart
+## Table of Contents
+- [Features](#features)
+- [Architecture](#architecture)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Scripts](#scripts)
+- [Environment Variables](#environment-variables)
+- [Running Locally](#running-locally)
+- [Build CSS (Tailwind)](#build-css-tailwind)
+- [HTTP Endpoints](#http-endpoints)
+- [Socket Events](#socket-events)
+- [WebRTC Signaling Flow](#webrtc-signaling-flow)
+- [Directory Structure](#directory-structure)
+- [Deployment](#deployment)
+- [Production Checklist](#production-checklist)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
-### Prerequisites
-- Node.js 18+ and npm 9+
+## Features
+- Anonymous one-to-one matchmaking queue
+- Realtime text chat via Socket.IO rooms
+- WebRTC video call (start, accept/reject, hang up)
+- Minimal EJS UI with Tailwind styling
 
-### Install dependencies
+## Architecture
+- Express serves EJS views and static assets from `public/`.
+- Socket.IO runs on the same HTTP server instance and pairs users into ad-hoc rooms.
+- WebRTC uses a public STUN server for NAT traversal; signaling is relayed via Socket.IO.
+
+## Requirements
+- Node.js 18+
+- npm 9+
+
+## Installation
 ```bash
 npm install
 ```
 
-### Build CSS (Tailwind)
+## Scripts
+```bash
+# Tailwind watch: ./public/css/tailwind.css → ./public/css/style.css
+npm run build:css
+```
+
+Optional addition to `package.json` for convenience:
+```json
+{
+  "scripts": {
+    "start": "node index.js"
+  }
+}
+```
+
+## Environment Variables
+- `PORT` (optional): HTTP port. Defaults to `3000` locally.
+
+In `index.js`, the server is created as `srever`. To honor platform `PORT` vars, adjust as follows:
+```js
+const PORT = process.env.PORT || 3000;
+srever.listen(PORT, () => console.log(`Server running on ${PORT}`));
+```
+
+## Running Locally
+```bash
+node index.js
+```
+Open `http://localhost:3000`.
+
+## Build CSS (Tailwind)
 Input: `public/css/tailwind.css` → Output: `public/css/style.css`
 ```bash
 # one-time build
@@ -32,4 +83,69 @@ npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/style.css
 # watch mode (recommended during dev)
 npm run build:css
 ```
+
+## HTTP Endpoints
+- `GET /` → Renders `views/index.ejs` (landing page)
+- `GET /chat` → Renders `views/chat.ejs` (chat + video UI)
+
+## Socket Events
+Client connects to default namespace (`io()`).
+
+Emitted by client
+- `joinroom` → Ask server to match with a partner.
+- `message` payload: `{ room, message }` → Send text to partner.
+- `signalingMessage` payload: `{ room, message }` → Stringified JSON for WebRTC (offer/answer/candidate/hangup).
+- `startVideoCall` payload: `{ room }` → Request a call with the peer.
+- `acceptCall` payload: `{ room }` → Accept incoming call.
+- `rejectCall` payload: `{ room }` → Reject incoming call.
+
+Emitted by server
+- `joined` payload: `roomname` → Sent to both users once paired.
+- `message` payload: `message` → Partner’s text message.
+- `signalingMessage` payload: `message` → Forwarded signaling between peers.
+- `incomingCall` → A peer initiated a call.
+- `callAccepted` → Peer accepted the call.
+- `callRejected` → Peer rejected the call.
+
+## WebRTC Signaling Flow
+1. Client A clicks video; emits `startVideoCall` → server notifies B with `incomingCall`.
+2. If B accepts, both peers initialize media and RTCPeerConnection.
+3. Offer/Answer exchange via `signalingMessage`:
+   - A creates offer → emits `signalingMessage` with `{ type: "offer" }`.
+   - B sets remote offer, creates answer → emits `{ type: "answer" }`.
+4. ICE candidates are exchanged via `{ type: "candidate" }` messages.
+5. Either peer can end with `{ type: "hangup" }` and stop local tracks.
+
+## Directory Structure
+```
+/
+├─ index.js              # Express app + Socket.IO matchmaking/signaling
+├─ routes/index.js       # Routes for / and /chat
+├─ views/                # EJS templates (index.ejs, chat.ejs, partials/)
+├─ public/css/           # Tailwind input (tailwind.css) and output (style.css)
+├─ tailwind.config.js    # Tailwind configuration
+└─ package.json
+```
+
+## Deployment
+- Any Node platform: Render, Railway, Fly.io, VPS, etc.
+- Serve via HTTPS or behind a TLS-terminating proxy (required by browsers for getUserMedia outside localhost).
+- Bind to `process.env.PORT` when provided by the platform (see snippet above).
+- For multi-instance scaling, use the Socket.IO Redis adapter for room/message fanout.
+
+## Production Checklist
+- HTTPS enabled (TLS certs or proxy)
+- Handle `PORT` env var
+- Robust CORS settings if serving UI and server on different origins
+- Rate limiting / moderation (not included in this demo)
+- Logging and monitoring of signaling errors
+
+## Troubleshooting
+- Camera/mic prompt not shown: allow permissions in browser site settings.
+- No video: confirm local/remote `<video>` elements are visible and streams attached; check console for WebRTC errors.
+- Signaling not flowing: verify Socket.IO connection and that `signalingMessage` payloads are stringified JSON.
+- STUN blocked: replace `stun:stun.l.google.com:19302` with a reachable STUN/TURN service.
+
+## License
+ISC
 
