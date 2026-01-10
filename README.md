@@ -48,15 +48,7 @@ npm install
 ```bash
 # Tailwind watch: ./public/css/tailwind.css → ./public/css/style.css
 npm run build:css
-```
 
-Optional addition to `package.json` for convenience:
-```json
-{
-  "scripts": {
-    "start": "node index.js"
-  }
-}
 ```
 
 ## Environment Variables
@@ -77,17 +69,7 @@ Open `http://localhost:3000`.
 ## Build CSS (Tailwind)
 Input: `public/css/tailwind.css` → Output: `public/css/style.css`
 ```bash
-# one-time build
-npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/style.css
-
-# watch mode (recommended during dev)
-npm run build:css
-```
-
-## HTTP Endpoints
-- `GET /` → Renders `views/index.ejs` (landing page)
-- `GET /chat` → Renders `views/chat.ejs` (chat + video UI)
-
+ 
 ## Socket Events
 Client connects to default namespace (`io()`).
 
@@ -127,12 +109,7 @@ Emitted by server
 └─ package.json
 ```
 
-## Deployment
-- Any Node platform: Render, Railway, Fly.io, VPS, etc.
-- Serve via HTTPS or behind a TLS-terminating proxy (required by browsers for getUserMedia outside localhost).
-- Bind to `process.env.PORT` when provided by the platform (see snippet above).
-- For multi-instance scaling, use the Socket.IO Redis adapter for room/message fanout.
-
+ 
 ## Production Checklist
 - HTTPS enabled (TLS certs or proxy)
 - Handle `PORT` env var
