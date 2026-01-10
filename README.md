@@ -1,6 +1,8 @@
 # Omegal — Anonymous Chat & Video Call
 
-Minimal Omegle-style chat with one-to-one text and optional WebRTC video.
+A minimal Omegle-style web app for anonymous one-to-one text chat with  video calling.
+
+🔗 Live Demo: https://omegal-three.vercel.app/chat
 
 - **Server**: Express 5 + Socket.IO 4 (CommonJS)
 - **Views**: EJS
