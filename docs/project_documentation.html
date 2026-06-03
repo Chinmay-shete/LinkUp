@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linkup - Project Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-4xl mx-auto py-12 px-6">
+        <h1 class="text-4xl font-extrabold text-indigo-600 mb-6">Linkup - Technical & Project Report</h1>
+        
+        <!-- Purpose -->
+        <section class="mb-10 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">1. Purpose of the Project</h2>
+            <p class="text-gray-600 leading-relaxed">
+                This project is a real-time web application inspired by Omegle. It allows users to connect with random strangers over the internet for anonymous text chatting and peer-to-peer video calling. The primary purpose is to provide a seamless, low-latency platform where users can instantly meet new people, with the ability to instantly skip ("Next") to a new person if they wish.
+            </p>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="mb-10 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">2. Technology Stack & Packages</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                <li><strong>Node.js & Express:</strong> The backend runtime and web framework used to serve the application and handle routing.</li>
+                <li><strong>Socket.io:</strong> Enables real-time, bi-directional, and event-based communication. Used for the matchmaking queue, chat messages, and WebRTC signaling.</li>
+                <li><strong>EJS (Embedded JavaScript templating):</strong> Used to render the HTML views dynamically on the server side.</li>
+                <li><strong>Tailwind CSS:</strong> A utility-first CSS framework used for rapidly building the user interface without writing custom CSS.</li>
+                <li><strong>WebRTC:</strong> Standard browser API used for peer-to-peer audio and video streaming. It allows direct media connections between two users for low latency.</li>
+            </ul>
+        </section>
+
+        <!-- User Flow -->
+        <section class="mb-10 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">3. User Flow & UX</h2>
+            <div class="space-y-4 text-gray-600">
+                <p><strong>1. Entry:</strong> When a user opens the app, they immediately enter the matchmaking queue. The UI displays <em>"Looking for a stranger to chat with..."</em>.</p>
+                <p><strong>2. Matchmaking:</strong> If another user is waiting, the server instantly pairs them up in a private "Room". The UI updates to allow texting.</p>
+                <p><strong>3. Text Chatting:</strong> Users can exchange messages in real-time. Messages are styled distinctly (blue for self, gray for partner).</p>
+                <p><strong>4. Video Calling:</strong> Either user can initiate a video call. The partner receives an incoming call prompt to Accept or Reject. Upon acceptance, WebRTC peer connections are established, and the video feeds appear on screen.</p>
+                <p><strong>5. Skipping (The "Next" Button):</strong> If a user wants to end the conversation, they click <strong>Next</strong>. This immediately disconnects them, clears their chat, informs their partner, and drops them back into the matchmaking queue to find someone new instantly.</p>
+            </div>
+        </section>
+
+        <!-- Architecture & Core Logic -->
+        <section class="mb-10 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">4. Core Logic & Architecture</h2>
+            <div class="space-y-4 text-gray-600">
+                <h3 class="text-xl font-semibold text-gray-800">Matchmaking (Queue System)</h3>
+                <p>The backend maintains a <code>waitingusers</code> array. When a socket connects and requests a room, the server checks if this array has waiting users. If yes, it pairs the new user with the first user in the array by generating a unique room ID and subscribing both sockets to it. If empty, the user is pushed into the array.</p>
+                
+                <h3 class="text-xl font-semibold text-gray-800">WebRTC Signaling</h3>
+                <p>Because WebRTC is peer-to-peer, browsers need a way to exchange connection data (SDP offers/answers and ICE candidates) before establishing a direct link. The <code>socket.io</code> server acts as a signaling server, blindly relaying <code>signalingMessage</code> events between the two users in a room until their direct video connection is established.</p>
+                
+                <h3 class="text-xl font-semibold text-gray-800">Room Security</h3>
+                <p>All events (messages, video calls, hanging up) are strictly validated on the backend. The server checks that the socket emitting the event actually belongs to the specified room, preventing malicious users from hijacking other rooms.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

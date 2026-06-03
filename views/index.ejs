@@ -1,19 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omegle Clone</title>
-  <link href="/css/style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linkup — Connect with random strangers instantly</title>
+    <meta name="description" content="No registration required. Instant text chat and peer-to-peer video calls with random strangers worldwide.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+    </style>
 </head>
+<body class="bg-white text-neutral-950 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="sticky z-20 bg-white border-b border-neutral-200 flex top-0 px-8 py-4 justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-xl bg-neutral-900 text-white flex justify-center items-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            </div>
+            <span class="font-extrabold text-neutral-950 text-xl tracking-tight">Linkup</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <button class="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-neutral-700 hover:bg-neutral-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
+                Interests
+            </button>
+            <button class="w-9 h-9 flex justify-center items-center rounded-md text-neutral-500 hover:bg-neutral-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <div class="w-9 h-9 rounded-full bg-neutral-100 border border-neutral-200 flex justify-center items-center">
+                <span class="font-semibold text-neutral-900 text-xs">ME</span>
+            </div>
+        </div>
+    </header>
 
-<body class="flex items-center justify-center h-screen bg-gray-200">
-  <div class="bg-white flex items-center flex-col p-8 rounded-lg shadow-md w-full max-w-xs">
-    <h1 class="text-2xl font-bold mb-4 text-center">Welcome to Omegle Clone</h1>
-    <a href="/chat" class="w-full text-center bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Start
-      Chat</a>
-  </div>
+    <!-- Main Hero -->
+    <main class="relative flex px-8 justify-center items-center flex-1 py-20">
+        <!-- Subtle radial gradient background -->
+        <div class="pointer-events-none -z-10 absolute inset-0 overflow-hidden">
+            <div class="left-1/2 top-1/2 absolute w-[640px] h-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full" style="background: radial-gradient(circle, rgba(99,102,241,0.08), transparent 70%);"></div>
+        </div>
+
+        <div class="max-w-3xl text-center flex flex-col items-center gap-8 w-full">
+            <!-- Anonymous badge -->
+            <div class="rounded-full bg-neutral-100 border border-neutral-200 flex px-4 py-1.5 items-center gap-2">
+                <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
+                <span class="font-medium text-neutral-500 text-xs">No registration. 100% anonymous.</span>
+            </div>
+
+            <!-- Headline -->
+            <div class="flex flex-col items-center gap-4">
+                <h1 class="font-extrabold text-neutral-950 text-5xl leading-tight tracking-tight">Connect with random<br>strangers instantly.</h1>
+                <p class="max-w-xl text-neutral-500 text-lg leading-7">No registration required. Instant text chat and peer-to-peer video calls.</p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col items-center gap-4">
+                <a href="/chat" id="start-text-chat" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl px-7 py-3 text-base transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                    Start Text Chat
+                </a>
+                <a href="/chat?mode=video" id="video-call-mode" class="inline-flex items-center gap-2 bg-white hover:bg-neutral-50 text-neutral-950 font-semibold rounded-xl px-7 py-3 text-base border border-neutral-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+                    Video Call Mode
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="max-w-2xl border-t border-neutral-200 flex mt-4 pt-8 justify-center items-center gap-8 w-full">
+                <div class="flex flex-col items-center gap-1">
+                    <span class="font-bold text-neutral-950 text-2xl">2.4M</span>
+                    <span class="text-neutral-500 text-xs">Active chats</span>
+                </div>
+                <div class="bg-neutral-200 w-px h-10"></div>
+                <div class="flex flex-col items-center gap-1">
+                    <span class="font-bold text-neutral-950 text-2xl">190+</span>
+                    <span class="text-neutral-500 text-xs">Countries</span>
+                </div>
+                <div class="bg-neutral-200 w-px h-10"></div>
+                <div class="flex flex-col items-center gap-1">
+                    <span class="font-bold text-neutral-950 text-2xl">&lt;3s</span>
+                    <span class="text-neutral-500 text-xs">Avg. match time</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-neutral-200 flex px-8 py-6 justify-between items-center w-full">
+        <span class="text-neutral-500 text-sm">© 2026 Linkup. Made in India.</span>
+        <nav class="flex items-center gap-6">
+            <a class="text-neutral-500 text-sm hover:text-neutral-800 transition-colors" href="#">Terms of Service</a>
+            <a class="text-neutral-500 text-sm hover:text-neutral-800 transition-colors" href="#">Privacy Policy</a>
+        </nav>
+    </footer>
 </body>
-
 </html>
