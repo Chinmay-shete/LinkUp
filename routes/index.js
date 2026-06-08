@@ -1,12 +1,8 @@
-
 const express = require("express");
-const router =  express.Router()
+const router = express.Router();
+const indexController = require("../controllers/indexController");
 
-router.get("/",(req,res)=>{
-    res.render("index")
-})
-router.get("/chat",(req,res)=>{
-    res.render("chat")
-})
+router.get("/", indexController.renderIndex);
+router.get("/chat", indexController.renderChat);
 
-module.exports = router
+module.exports = router;

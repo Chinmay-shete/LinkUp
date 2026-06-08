@@ -2,13 +2,17 @@
 //  CHAT STATE MACHINE
 //  States: 'waiting' | 'connected' | 'disconnected'
 // ─────────────────────────────────────────────────────────────
-const socket = io();
+const socketUrl = window.SOCKET_SERVER_URL || window.location.origin;
+const socket = io(socketUrl, {
+    transports: ['websocket', 'polling']
+});
 const messagebox    = document.querySelector('#messagebox');
 const messageContainer = document.querySelector('#message-container');
 const sendBtn       = document.querySelector('#send-btn');
 const inputWrapper  = document.querySelector('#input-wrapper');
 
 let room = null;
+let currentState = 'waiting';
 
 // ── Helpers to enable/disable input ──────────────────────────
 function enableInput() {
@@ -25,6 +29,7 @@ function disableInput() {
 
 // ── UI State transitions ──────────────────────────────────────
 function setWaiting() {
+    currentState = 'waiting';
     // Video panel: show spinner
     document.querySelector('#waiting-overlay').classList.remove('hidden');
     document.querySelector('#connected-badge').classList.add('hidden');
@@ -41,6 +46,7 @@ function setWaiting() {
 }
 
 function setConnected(roomname) {
+    currentState = 'connected';
     room = roomname;
 
     // Video panel: hide spinner, show badge
@@ -59,6 +65,7 @@ function setConnected(roomname) {
 }
 
 function setDisconnected() {
+    currentState = 'disconnected';
     room = null;
     disableInput();
     document.querySelector('#disconnected-overlay').classList.remove('hidden');
@@ -122,7 +129,17 @@ function escapeHtml(str) {
 // ─────────────────────────────────────────────────────────────
 //  SOCKET EVENTS
 // ─────────────────────────────────────────────────────────────
-socket.emit('joinroom');
+socket.on('connect', () => {
+    if (currentState === 'waiting') {
+        socket.emit('joinroom');
+    }
+});
+
+socket.on('disconnect', () => {
+    if (currentState === 'connected') {
+        setDisconnected();
+    }
+});
 
 socket.on('joined', function(roomname) {
     setConnected(roomname);

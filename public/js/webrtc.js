@@ -81,7 +81,7 @@ const createPeerConnection = () => {
     };
 
     peerConnection.onconnectionstatechange = () => {
-        if (['disconnected', 'failed', 'closed'].includes(peerConnection.connectionState)) {
+        if (['failed', 'closed'].includes(peerConnection.connectionState)) {
             hangup();
         }
     };
