@@ -94,7 +94,7 @@ function attachMessage(message) {
     const wrap = document.createElement('div');
     wrap.className = 'chat-msg flex flex-col items-end gap-1';
     wrap.innerHTML = `
-        <div class="max-w-[80%] rounded-tl-2xl rounded-tr-sm rounded-bl-2xl rounded-br-2xl bg-blue-600 text-white text-sm leading-5 px-4 py-2.5">${escapeHtml(message)}</div>
+        <div class="max-w-xs sm:max-w-sm rounded-tl-2xl rounded-tr-sm rounded-bl-2xl rounded-br-2xl bg-blue-600 text-white text-sm leading-5 px-4 py-2.5 break-words">${escapeHtml(message)}</div>
         <span class="text-neutral-500 text-[10px] px-1">${time}</span>
     `;
     messageContainer.appendChild(wrap);
@@ -108,7 +108,7 @@ function receiveMessage(message) {
     const wrap = document.createElement('div');
     wrap.className = 'chat-msg flex flex-col items-start gap-1';
     wrap.innerHTML = `
-        <div class="max-w-[80%] rounded-tl-sm rounded-tr-2xl rounded-bl-2xl rounded-br-2xl bg-neutral-100 text-neutral-950 text-sm leading-5 px-4 py-2.5">${escapeHtml(message)}</div>
+        <div class="max-w-xs sm:max-w-sm rounded-tl-sm rounded-tr-2xl rounded-bl-2xl rounded-br-2xl bg-neutral-100 text-neutral-950 text-sm leading-5 px-4 py-2.5 break-words">${escapeHtml(message)}</div>
         <span class="text-neutral-500 text-[10px] px-1">${time}</span>
     `;
     messageContainer.appendChild(wrap);

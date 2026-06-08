@@ -35,7 +35,7 @@
     <!-- ============================================================
          MAIN LAYOUT: 2 columns (video left | chat right)
          ============================================================ -->
-    <main class="grid grid-cols-2 px-6 py-5 gap-5 flex-1 overflow-hidden">
+    <main class="grid grid-cols-1 lg:grid-cols-2 grid-rows-[40%_minmax(0,1fr)] lg:grid-rows-1 px-4 lg:px-6 py-3 lg:py-5 gap-4 lg:gap-5 flex-1 overflow-hidden">
 
         <!-- ── LEFT: VIDEO PANEL ── -->
         <section id="video-section" class="relative rounded-2xl bg-neutral-900 overflow-hidden flex flex-col">
@@ -64,7 +64,7 @@
             </div>
 
             <!-- PiP local video (bottom-right) -->
-            <div id="local-pip" class="hidden absolute right-4 bottom-20 z-20 w-36 h-48 rounded-xl overflow-hidden border-2 border-white/80 shadow-lg">
+            <div id="local-pip" class="hidden absolute right-2 sm:right-4 bottom-16 sm:bottom-20 z-20 w-24 h-32 sm:w-36 sm:h-48 rounded-xl overflow-hidden border-2 border-white/80 shadow-lg">
                 <video id="localVideo" class="w-full h-full object-cover" autoplay muted playsinline></video>
                 <div class="absolute left-1.5 top-1.5 bg-black/55 text-white text-[10px] font-medium rounded-full px-2 py-0.5">You</div>
                 <!-- Mic/Camera/Flip controls inside pip -->
@@ -125,7 +125,7 @@
                 <button id="send-btn" class="w-11 h-11 rounded-xl bg-neutral-900 text-white flex justify-center items-center flex-shrink-0 opacity-50 pointer-events-none hover:bg-neutral-700 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                 </button>
-                <button id="next-btn" class="flex items-center gap-2 rounded-xl border border-neutral-200 text-neutral-950 font-medium text-sm px-4 h-11 hover:bg-neutral-50 transition-colors flex-shrink-0">
+                <button id="next-btn" class="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-neutral-200 text-neutral-950 font-medium text-xs sm:text-sm px-3 sm:px-4 h-11 hover:bg-neutral-50 transition-colors flex-shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
                     Next
                 </button>
@@ -135,16 +135,16 @@
     </main>
 
     <!-- ── BOTTOM ACTION BAR ── -->
-    <footer class="bg-white border-t border-neutral-200 flex px-6 py-3 items-center gap-3 flex-shrink-0">
-        <button id="stop-btn" class="flex items-center gap-2 rounded-xl bg-red-600 text-white font-medium px-5 h-11 hover:bg-red-700 transition-colors">
+    <footer class="bg-white border-t border-neutral-200 flex px-3 sm:px-6 py-3 items-center gap-2 sm:gap-3 flex-shrink-0">
+        <button id="stop-btn" class="flex flex-1 sm:flex-initial justify-center items-center gap-1.5 sm:gap-2 rounded-xl bg-red-600 text-white font-medium px-3 sm:px-5 h-11 hover:bg-red-700 transition-colors text-sm sm:text-base">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.42 19.42 0 0 1 4.26 8.47a2 2 0 0 1 2-2.18A12.84 12.84 0 0 0 9 5.58a2 2 0 0 1 .45-2.11L10.72 2.2a16 16 0 0 1 2.6 3.41"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
             Stop
         </button>
-        <button id="footer-next-btn" class="flex items-center gap-2 rounded-xl border border-neutral-200 text-neutral-950 font-medium px-5 h-11 hover:bg-neutral-50 transition-colors">
+        <button id="footer-next-btn" class="flex flex-1 sm:flex-initial justify-center items-center gap-1.5 sm:gap-2 rounded-xl border border-neutral-200 text-neutral-950 font-medium px-3 sm:px-5 h-11 hover:bg-neutral-50 transition-colors text-sm sm:text-base">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg>
             Next
         </button>
-        <button id="video-call-btn" class="flex items-center gap-2 rounded-xl border border-neutral-200 text-neutral-950 font-medium px-5 h-11 hover:bg-neutral-50 transition-colors">
+        <button id="video-call-btn" class="flex flex-1 sm:flex-initial justify-center items-center gap-1.5 sm:gap-2 rounded-xl border border-neutral-200 text-neutral-950 font-medium px-3 sm:px-5 h-11 hover:bg-neutral-50 transition-colors text-sm sm:text-base">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
             Video Call
         </button>
