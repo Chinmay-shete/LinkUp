@@ -2,7 +2,7 @@
 
 A full-stack Node.js application for real-time anonymous text chatting and peer-to-peer video calling. It pairs users dynamically into private rooms.
 
-🔗 **Live Demo**: https://linkup-three.vercel.app/chat
+🔗 **Live Demo**: https://linkup-9hcy.onrender.com
 
 ## Features
 - **Real-time Matchmaking**: Users are automatically paired into a private room using a queue-based matching system.
