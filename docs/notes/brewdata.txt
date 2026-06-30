@@ -1,0 +1,332 @@
+mysql
+node
+poppler
+tig
+---
+==> abseil: C++ Common Libraries
+Formula from homebrew/core
+Installed: 20260107.1 (dependency)
+
+==> ada-url: WHATWG-compliant and fast URL parser written in modern C++
+Formula from homebrew/core
+Installed: 3.4.4 (dependency)
+
+==> brotli: Generic-purpose lossless compression algorithm by Google
+Formula from homebrew/core
+Installed: 1.2.0 (dependency)
+
+==> c-ares: Asynchronous DNS library
+Formula from homebrew/core
+Installed: 1.34.6 (dependency)
+
+==> ca-certificates: Mozilla CA certificate store
+Formula from homebrew/core
+Installed: 2026-05-14 (dependency)
+
+==> cairo: Vector graphics library with cross-device output support
+Formula from homebrew/core
+Installed: 1.18.4 (dependency)
+
+==> fmt: Open-source formatting library for C++
+Formula from homebrew/core
+Installed: 12.1.0 (dependency)
+
+==> fontconfig: XML-based font configuration API for X Windows
+Formula from homebrew/core
+Installed: 2.18.1 (dependency)
+
+==> freetype: Software library to render fonts
+Formula from homebrew/core
+Installed: 2.14.3 (dependency)
+
+==> gettext: GNU internationalization (i18n) and localization (l10n) library
+Formula from homebrew/core
+Installed: 1.0 (dependency)
+
+==> glib: Core application library for C
+Formula from homebrew/core
+Installed: 2.88.1 (dependency)
+
+==> gmp: GNU multiple precision arithmetic library
+Formula from homebrew/core
+Installed: 6.3.0 (dependency)
+
+==> gnupg: GNU Privacy Guard (OpenPGP)
+Formula from homebrew/core
+Installed: 2.5.20 (dependency)
+
+==> gnutls: GNU Transport Layer Security (TLS) Library
+Formula from homebrew/core
+Installed: 3.8.13_2 (dependency)
+
+==> gpgme: Library access to GnuPG
+Formula from homebrew/core
+Installed: 2.1.0 (dependency)
+
+==> gpgmepp: C++ bindings for gpgme
+Formula from homebrew/core
+Installed: 2.1.0 (dependency)
+
+==> hdrhistogram_c: C port of the HdrHistogram
+Formula from homebrew/core
+Installed: 0.11.9 (dependency)
+
+==> icu4c@78: C/C++ and Java libraries for Unicode and globalization
+Formula from homebrew/core
+Installed: 78.3 (dependency)
+
+==> jpeg-turbo: JPEG image codec that aids compression and decompression
+Formula from homebrew/core
+Installed: 3.1.4.1 (dependency)
+
+==> libassuan: Assuan IPC Library
+Formula from homebrew/core
+Installed: 3.0.2 (dependency)
+
+==> libffi: Portable Foreign Function Interface library
+Formula from homebrew/core
+Installed: 3.5.2 (dependency)
+
+==> libgcrypt: Cryptographic library based on the code from GnuPG
+Formula from homebrew/core
+Installed: 1.12.2 (dependency)
+
+==> libgpg-error: Common error values for all GnuPG components
+Formula from homebrew/core
+Installed: 1.61 (dependency)
+
+==> libidn2: International domain name library (IDNA2008, Punycode and TR46)
+Formula from homebrew/core
+Installed: 2.3.8 (dependency)
+
+==> libksba: X.509 and CMS library
+Formula from homebrew/core
+Installed: 1.8.0 (dependency)
+
+==> libnghttp2: HTTP/2 C Library
+Formula from homebrew/core
+Installed: 1.69.0 (dependency)
+
+==> libnghttp3: HTTP/3 library written in C
+Formula from homebrew/core
+Installed: 1.16.0 (dependency)
+
+==> libngtcp2: IETF QUIC protocol implementation
+Formula from homebrew/core
+Installed: 1.23.0 (dependency)
+
+==> libpng: Library for manipulating PNG images
+Formula from homebrew/core
+Installed: 1.6.58 (dependency)
+
+==> libtasn1: ASN.1 structure parser library
+Formula from homebrew/core
+Installed: 4.21.0 (dependency)
+
+==> libtiff: TIFF library and utilities
+Formula from homebrew/core
+Installed: 4.7.1_1 (dependency)
+
+==> libunistring: C string library for manipulating Unicode strings
+Formula from homebrew/core
+Installed: 1.4.2 (dependency)
+
+==> libusb: Library for USB device access
+Formula from homebrew/core
+Installed: 1.0.30 (dependency)
+
+==> libuv: Multi-platform support library with a focus on asynchronous I/O
+Formula from homebrew/core
+Installed: 1.52.1 (dependency)
+
+==> libx11: X.Org: Core X11 protocol client library
+Formula from homebrew/core
+Installed: 1.8.13 (dependency)
+
+==> libxau: X.Org: A Sample Authorization Protocol for X
+Formula from homebrew/core
+Installed: 1.0.12 (dependency)
+
+==> libxcb: X.Org: Interface to the X Window System protocol
+Formula from homebrew/core
+Installed: 1.17.0 (dependency)
+
+==> libxdmcp: X.Org: X Display Manager Control Protocol library
+Formula from homebrew/core
+Installed: 1.1.5 (dependency)
+
+==> libxext: X.Org: Library for common extensions to the X11 protocol
+Formula from homebrew/core
+Installed: 1.3.7 (dependency)
+
+==> libxrender: X.Org: Library for the Render Extension to the X11 protocol
+Formula from homebrew/core
+Installed: 0.9.12 (dependency)
+
+==> little-cms2: Color management engine supporting ICC profiles
+Formula from homebrew/core
+Installed: 2.19 (dependency)
+
+==> llhttp: Port of http_parser to llparse
+Formula from homebrew/core
+Installed: 9.4.1 (dependency)
+
+==> lz4: Extremely Fast Compression algorithm
+Formula from homebrew/core
+Installed: 1.10.0 (dependency)
+
+==> lzo: Real-time data compression library
+Formula from homebrew/core
+Installed: 2.10 (dependency)
+
+==> merve: C++ lexer for extracting named exports from CommonJS modules
+Formula from homebrew/core
+Installed: 1.2.2_1 (dependency)
+
+==> mysql: Open source relational database management system
+Formula from homebrew/core
+Installed: 9.6.0_4 (on request)
+
+==> nbytes: Library of byte handling functions extracted from Node.js core
+Formula from homebrew/core
+Installed: 0.1.4 (dependency)
+
+==> ncurses: Text-based UI library
+Formula from homebrew/core
+Installed: 6.6 (dependency)
+
+==> nettle: Low-level cryptographic library
+Formula from homebrew/core
+Installed: 4.0 (dependency)
+
+==> node: Open-source, cross-platform JavaScript runtime environment
+Formula from homebrew/core
+Installed: 26.3.0 (on request)
+
+==> npth: New GNU portable threads library
+Formula from homebrew/core
+Installed: 1.8 (dependency)
+
+==> nspr: Platform-neutral API for system-level and libc-like functions
+Formula from homebrew/core
+Installed: 4.39 (dependency)
+
+==> nss: Libraries for security-enabled client and server applications
+Formula from homebrew/core
+Installed: 3.125 (dependency)
+
+==> openjpeg: Library for JPEG-2000 image manipulation
+Formula from homebrew/core
+Installed: 2.5.4 (dependency)
+
+==> openssl@3: Cryptography and SSL/TLS Toolkit
+Formula from homebrew/core
+Installed: 3.6.2 (dependency)
+
+==> p11-kit: Library to load and enumerate PKCS#11 modules
+Formula from homebrew/core
+Installed: 0.26.2 (dependency)
+
+==> pcre2: Perl compatible regular expressions library with a new API
+Formula from homebrew/core
+Installed: 10.47_1 (dependency)
+
+==> pinentry: Passphrase entry dialog utilizing the Assuan protocol
+Formula from homebrew/core
+Installed: 1.3.2 (dependency)
+
+==> pixman: Low-level library for pixel manipulation
+Formula from homebrew/core
+Installed: 0.46.4 (dependency)
+
+==> poppler: PDF rendering library (based on the xpdf-3.0 code base)
+Formula from homebrew/core
+Installed: 26.06.0 (on request)
+
+==> protobuf: Protocol buffers (Google's data interchange format)
+Formula from homebrew/core
+Installed: 35.1 (dependency)
+
+==> readline: Library for command-line editing
+Formula from homebrew/core
+Installed: 8.3.3 (dependency)
+
+==> simdjson: SIMD-accelerated C++ JSON parser
+Formula from homebrew/core
+Installed: 4.6.4 (dependency)
+
+==> simdutf: Unicode conversion routines, fast
+Formula from homebrew/core
+Installed: 9.0.0 (dependency)
+
+==> sqlite: Command-line interface for SQLite
+Formula from homebrew/core
+Installed: 3.53.2 (dependency)
+
+==> tig: Text interface for Git repositories
+Formula from homebrew/core
+Installed: 2.6.0 (on request)
+
+==> uvwasi: WASI syscall API built atop libuv
+Formula from homebrew/core
+Installed: 0.0.23 (dependency)
+
+==> xorgproto: X.Org: Protocol Headers
+Formula from homebrew/core
+Installed: 2025.1 (dependency)
+
+==> xz: General-purpose data compression with high compression ratio
+Formula from homebrew/core
+Installed: 5.8.3 (dependency)
+
+==> zlib-ng-compat: Zlib replacement with optimizations for next generation systems
+Formula from homebrew/core
+Installed: 2.3.3_1 (dependency)
+
+==> zstd: Zstandard is a real-time compression algorithm
+Formula from homebrew/core
+Installed: 1.5.7_1 (dependency)
+
+==> brave-browser: (Brave) Web browser focusing on privacy
+Cask from homebrew/cask
+Installed: 1.91.171.0 (on request)
+
+==> chatgpt: (ChatGPT) OpenAI's official ChatGPT desktop app
+Cask from homebrew/cask
+Installed: 1.2026.119,1780053722 (on request)
+
+==> claude: (Claude) Anthropic's official Claude AI desktop app
+Cask from homebrew/cask
+Installed: 1.11847.5,9692f0b44ffa0158a501a91309e361c0d48ed8e4 (on request)
+
+==> google-chrome: (Google Chrome) Web browser
+Cask from homebrew/cask
+Installed: 149.0.7827.103 (on request)
+
+==> intellij-idea: (IntelliJ IDEA Ultimate) Java IDE by JetBrains
+Cask from homebrew/cask
+Installed: 2026.1.3,261.25134.95 (on request)
+
+==> libreoffice: (LibreOffice) Free cross-platform office suite, fresh version
+Cask from homebrew/cask
+Installed: 26.2.4 (on request)
+
+==> localsend: (LocalSend) Open-source cross-platform alternative to AirDrop
+Cask from homebrew/cask
+Installed: 1.17.0 (on request)
+
+==> mysqlworkbench: (MySQL Workbench) Visual tool to design, develop and administer MySQL servers
+Cask from homebrew/cask
+Installed: 8.0.47 (on request)
+
+==> visual-studio-code: (Microsoft Visual Studio Code, VS Code) Open-source code editor
+Cask from homebrew/cask
+Installed: 1.123.0 (on request)
+
+==> vlc: (VLC media player) Multimedia player
+Cask from homebrew/cask
+Installed: 3.0.23 (on request)
+
+==> whatsapp: (WhatsApp) Native desktop client for WhatsApp
+Cask from homebrew/cask
+Installed: 2.26.23.15 (on request)

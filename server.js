@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const indexRouter = require("./routes/index");
+const homeRouter = require("./routes/home-routes");
 const path = require("path");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -19,7 +19,7 @@ const io = socketIo(server, {
 });
 
 // Initialize socket handler module
-require("./sockets/chatSocket")(io);
+require("./sockets/chat-socket")(io);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/", homeRouter);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
