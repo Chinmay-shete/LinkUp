@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', system-ui, sans-serif; }
@@ -51,7 +51,7 @@
             </div>
 
             <!-- CONNECTED STATE: Remote video fills the panel -->
-            <video id="remoteVideo" class="absolute inset-0 w-full h-full object-cover" autoplay playsinline></video>
+            <video id="remoteVideo" class="absolute inset-0 w-full h-full object-cover" autoplay playsinline style="display: none;"></video>
 
             <!-- Gradient overlays -->
             <div class="pointer-events-none absolute inset-x-0 top-0 h-24 z-10" style="background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);"></div>
@@ -65,7 +65,7 @@
 
             <!-- PiP local video (bottom-right) -->
             <div id="local-pip" class="hidden absolute right-2 sm:right-4 bottom-16 sm:bottom-20 z-20 w-24 h-32 sm:w-36 sm:h-48 rounded-xl overflow-hidden border-2 border-white/80 shadow-lg">
-                <video id="localVideo" class="w-full h-full object-cover" autoplay muted playsinline></video>
+                <video id="localVideo" class="w-full h-full object-cover" autoplay muted playsinline style="display: none;"></video>
                 <div class="absolute left-1.5 top-1.5 bg-black/55 text-white text-[10px] font-medium rounded-full px-2 py-0.5">You</div>
                 <!-- Mic/Camera/Flip controls inside pip -->
                 <div class="absolute inset-x-0 bottom-0 py-1.5 flex justify-center items-center gap-1.5" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
@@ -121,6 +121,7 @@
                 <div id="input-wrapper" class="rounded-xl bg-neutral-100 flex px-3 items-center flex-1 gap-2 h-11 opacity-50 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-500 flex-shrink-0"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     <input id="messagebox" type="text" class="bg-transparent outline-none text-sm flex-1 h-full" placeholder="Type a message..." disabled>
+                    <span id="char-counter" class="text-xs text-neutral-400 font-medium select-none hidden">0/1000</span>
                 </div>
                 <button id="send-btn" class="w-11 h-11 rounded-xl bg-neutral-900 text-white flex justify-center items-center flex-shrink-0 opacity-50 pointer-events-none hover:bg-neutral-700 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
@@ -200,6 +201,9 @@
 
     <script>
         window.SOCKET_SERVER_URL = "<%= socketServerUrl %>";
+        window.TURN_URL = "<%= turnUrl %>";
+        window.TURN_USERNAME = "<%= turnUsername %>";
+        window.TURN_CREDENTIAL = "<%= turnCredential %>";
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>

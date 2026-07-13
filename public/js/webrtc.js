@@ -3,9 +3,18 @@ let localStream;
 let remoteStream;
 let peerConnection;
 let inCall = false;
+let permissionGranted = false;
 
 const rtcSettings = {
-    iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+    iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' },
+        {
+            urls: window.TURN_URL || 'turn:openrelay.metered.ca:80',
+            username: window.TURN_USERNAME || '',
+            credential: window.TURN_CREDENTIAL || ''
+        }
+    ],
 };
 
 // ── Show/hide video call UI elements ──────────────────────────
@@ -24,12 +33,16 @@ const initialize = async (isCaller = false) => {
     socket.off('signalingMessage');
     socket.on('signalingMessage', handleSignalingMessage);
 
+    permissionGranted = false;
     try {
         localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        permissionGranted = true;
 
         const localVideo = document.querySelector('#localVideo');
-        localVideo.srcObject = localStream;
-        localVideo.style.display = 'block';
+        if (localVideo) {
+            localVideo.srcObject = localStream;
+            localVideo.style.display = 'block';
+        }
 
         showVideoCallUI();
 
@@ -37,13 +50,23 @@ const initialize = async (isCaller = false) => {
             await initiateOffer();
         }
         inCall = true;
+        return true;
     } catch (err) {
         console.error('Camera/mic access denied:', err);
         alert('Please allow camera and microphone access to use video calls.');
+        if (room) {
+            socket.emit('signalingMessage', { room, message: JSON.stringify({ type: 'hangup' }) });
+        }
+        hangup();
+        return false;
     }
 };
 
 const initiateOffer = async () => {
+    if (!permissionGranted || !localStream) {
+        console.warn('Cannot initiate offer: permission not granted or stream missing.');
+        return;
+    }
     await createPeerConnection();
     try {
         const offer = await peerConnection.createOffer();
@@ -58,12 +81,18 @@ const initiateOffer = async () => {
 };
 
 const createPeerConnection = () => {
+    if (!localStream) {
+        console.warn('Aborting peer connection creation: localStream is empty.');
+        return;
+    }
     peerConnection = new RTCPeerConnection(rtcSettings);
     remoteStream = new MediaStream();
 
     const remoteVideo = document.querySelector('#remoteVideo');
-    remoteVideo.srcObject = remoteStream;
-    remoteVideo.style.display = 'block';
+    if (remoteVideo) {
+        remoteVideo.srcObject = remoteStream;
+        remoteVideo.style.display = 'block';
+    }
 
     localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
 
@@ -81,7 +110,7 @@ const createPeerConnection = () => {
     };
 
     peerConnection.onconnectionstatechange = () => {
-        if (['failed', 'closed'].includes(peerConnection.connectionState)) {
+        if (peerConnection && ['failed', 'closed'].includes(peerConnection.connectionState)) {
             hangup();
         }
     };
@@ -99,6 +128,10 @@ const handleSignalingMessage = async (message) => {
 };
 
 const handleOffer = async (offer) => {
+    if (!permissionGranted || !localStream) {
+        console.warn('Aborting offer handling: localStream is missing.');
+        return;
+    }
     await createPeerConnection();
     try {
         await peerConnection.setRemoteDescription(offer);
@@ -112,17 +145,23 @@ const handleOffer = async (offer) => {
 };
 
 const handleAnswer = async (answer) => {
-    try { await peerConnection.setRemoteDescription(answer); }
-    catch (e) { console.error('Failed to handle answer:', e); }
+    if (peerConnection) {
+        try { await peerConnection.setRemoteDescription(answer); }
+        catch (e) { console.error('Failed to handle answer:', e); }
+    }
 };
 
 // ── Hang up ────────────────────────────────────────────────────
 function hangup() {
-    if (peerConnection) { peerConnection.close(); peerConnection = null; }
+    if (peerConnection) { 
+        peerConnection.close(); 
+        peerConnection = null; 
+    }
     if (localStream) {
         localStream.getTracks().forEach(t => t.stop());
         localStream = null;
     }
+    permissionGranted = false;
 
     const localVideo = document.querySelector('#localVideo');
     const remoteVideo = document.querySelector('#remoteVideo');
@@ -160,10 +199,14 @@ socket.on('callAccepted', function() {
     initialize(true);
 });
 
-document.querySelector('#accept-call').addEventListener('click', function() {
+document.querySelector('#accept-call').addEventListener('click', async function() {
     document.querySelector('#incoming-call').classList.add('hidden');
-    initialize(false);
-    socket.emit('acceptCall', { room });
+    const success = await initialize(false);
+    if (success) {
+        socket.emit('acceptCall', { room });
+    } else {
+        socket.emit('rejectCall', { room });
+    }
 });
 
 document.querySelector('#reject-call').addEventListener('click', function() {
@@ -184,15 +227,14 @@ let isVideoMuted = false;
 
 function updateMicBtn() {
     const btn = document.querySelector('#mic-toggle');
-    btn.style.backgroundColor = isAudioMuted ? '#ef4444' : '';
-    // Also update the pip mic button
+    if (btn) btn.style.backgroundColor = isAudioMuted ? '#ef4444' : '';
     const pipMic = document.querySelector('#micButton');
     if (pipMic) pipMic.style.backgroundColor = isAudioMuted ? 'rgba(239,68,68,0.5)' : '';
 }
 
 function updateCamBtn() {
     const btn = document.querySelector('#cam-toggle');
-    btn.style.backgroundColor = isVideoMuted ? '#ef4444' : '';
+    if (btn) btn.style.backgroundColor = isVideoMuted ? '#ef4444' : '';
     const pipCam = document.querySelector('#cameraButton');
     if (pipCam) pipCam.style.backgroundColor = isVideoMuted ? 'rgba(239,68,68,0.5)' : '';
 }
@@ -215,18 +257,24 @@ document.querySelector('#cam-toggle').addEventListener('click', () => {
 });
 
 // PiP overlay mic/cam buttons (mirror same state)
-document.querySelector('#micButton').addEventListener('click', () => {
-    if (localStream) {
-        isAudioMuted = !isAudioMuted;
-        localStream.getAudioTracks().forEach(t => t.enabled = !isAudioMuted);
-        updateMicBtn();
-    }
-});
+const pipMicBtn = document.querySelector('#micButton');
+if (pipMicBtn) {
+    pipMicBtn.addEventListener('click', () => {
+        if (localStream) {
+            isAudioMuted = !isAudioMuted;
+            localStream.getAudioTracks().forEach(t => t.enabled = !isAudioMuted);
+            updateMicBtn();
+        }
+    });
+}
 
-document.querySelector('#cameraButton').addEventListener('click', () => {
-    if (localStream) {
-        isVideoMuted = !isVideoMuted;
-        localStream.getVideoTracks().forEach(t => t.enabled = !isVideoMuted);
-        updateCamBtn();
-    }
-});
+const pipCamBtn = document.querySelector('#cameraButton');
+if (pipCamBtn) {
+    pipCamBtn.addEventListener('click', () => {
+        if (localStream) {
+            isVideoMuted = !isVideoMuted;
+            localStream.getVideoTracks().forEach(t => t.enabled = !isVideoMuted);
+            updateCamBtn();
+        }
+    });
+}

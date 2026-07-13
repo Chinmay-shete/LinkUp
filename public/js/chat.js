@@ -10,6 +10,7 @@ const messagebox    = document.querySelector('#messagebox');
 const messageContainer = document.querySelector('#message-container');
 const sendBtn       = document.querySelector('#send-btn');
 const inputWrapper  = document.querySelector('#input-wrapper');
+const charCounter   = document.querySelector('#char-counter');
 
 let room = null;
 let currentState = 'waiting';
@@ -19,12 +20,17 @@ function enableInput() {
     messagebox.disabled = false;
     inputWrapper.classList.remove('opacity-50', 'pointer-events-none');
     sendBtn.classList.remove('opacity-50', 'pointer-events-none');
+    if (charCounter) charCounter.classList.remove('hidden');
 }
 
 function disableInput() {
     messagebox.disabled = true;
     inputWrapper.classList.add('opacity-50', 'pointer-events-none');
     sendBtn.classList.add('opacity-50', 'pointer-events-none');
+    if (charCounter) {
+        charCounter.classList.add('hidden');
+        charCounter.textContent = '0/1000';
+    }
 }
 
 // ── UI State transitions ──────────────────────────────────────
@@ -126,6 +132,23 @@ function escapeHtml(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// ── Character counter validation ──────────────────────────────
+if (messagebox) {
+    messagebox.addEventListener('input', () => {
+        const len = messagebox.value.length;
+        if (charCounter) {
+            charCounter.textContent = `${len}/1000`;
+            if (len > 1000) {
+                charCounter.className = 'text-xs text-red-500 font-bold select-none';
+                sendBtn.classList.add('opacity-50', 'pointer-events-none');
+            } else {
+                charCounter.className = 'text-xs text-neutral-400 font-medium select-none';
+                sendBtn.classList.remove('opacity-50', 'pointer-events-none');
+            }
+        }
+    });
+}
+
 // ─────────────────────────────────────────────────────────────
 //  SOCKET EVENTS
 // ─────────────────────────────────────────────────────────────
@@ -153,16 +176,28 @@ socket.on('message', function(message) {
     receiveMessage(message);
 });
 
+socket.on('error_msg', function(err) {
+    addSystemMessage(`Error: ${err}`);
+});
+
+socket.on('connect_error', function(err) {
+    console.error('Socket connection error:', err);
+    addSystemMessage(`Connection Error: ${err.message}`);
+});
+
 // ─────────────────────────────────────────────────────────────
 //  SEND MESSAGE (both via chat-panel form and footer)
 // ─────────────────────────────────────────────────────────────
 function sendMessage() {
     if (!room) return;
     const msg = messagebox.value.trim();
-    if (!msg) return;
+    if (!msg || msg.length > 1000) return;
     socket.emit('message', { room, message: msg });
     attachMessage(msg);
     messagebox.value = '';
+    if (charCounter) {
+        charCounter.textContent = '0/1000';
+    }
 }
 
 messagebox.addEventListener('keydown', function(e) {
